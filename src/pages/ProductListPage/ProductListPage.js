@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ProductList from "../../components/ProductList/ProductList";
 import ProductItem from "../../components/ProductItem/ProductItem";
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import callApi from "./../../utils/apiCaller";
 class ProductListPage extends Component {
@@ -24,9 +25,9 @@ class ProductListPage extends Component {
     const {products} = this.state;
     return (
       <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <button type="button" className="btn btn-info mb-10">
+        <Link to="/product/add" className="btn btn-info mb-10">
           Thêm Sản Phẩm
-        </button>
+        </Link>
         <ProductList>
           {this.showProducts(products)}
         </ProductList>        
