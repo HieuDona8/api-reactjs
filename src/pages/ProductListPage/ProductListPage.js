@@ -2,9 +2,21 @@ import React, { Component } from "react";
 import ProductList from "../../components/ProductList/ProductList";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import { connect } from 'react-redux'
+import axios from 'axios';
 class ProductListPage extends Component {
   render() {
-    const { products } = this.props;
+    let products =[];
+    axios({
+      method: 'GET',
+      url: 'http://5dd5e366ce4c300014403284.mockapi.io/products',
+      data: null
+    }).then(res =>{
+      products = res.data;
+    }).catch(err =>{
+      console.log(err);
+    })
+    //const { products } = this.props;
+    
     return (
       <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button type="button" className="btn btn-info mb-10">
