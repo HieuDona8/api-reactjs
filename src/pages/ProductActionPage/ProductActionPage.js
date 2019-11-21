@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Link} from 'react-router-dom';
 import callApi from './../../utils/apiCaller';
 class ProductActionPage extends Component {
   constructor(props) {
@@ -23,12 +24,14 @@ class ProductActionPage extends Component {
   onSave = (e)=>{
     e.preventDefault();
     const { txtName, txtPrice, chkbStatus} = this.state;
+    const {history} = this.props;
     callApi('products', 'POST', {
       name : txtName,
       price: txtPrice,
       status: chkbStatus,
     }).then(res =>{
-      console.log("my", res)
+      history.goBack();
+      //history.push('/');
     })
   }
   render() {
@@ -70,9 +73,12 @@ class ProductActionPage extends Component {
               </label>
             </div>
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary mr-10">
             Lưu Lại
           </button>
+          <Link to={"/product-list"} className="btn btn-danger">
+            Trở Lại
+          </Link>
         </form>
       </div>
     );
