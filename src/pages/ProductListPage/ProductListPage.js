@@ -4,6 +4,8 @@ import ProductItem from "../../components/ProductItem/ProductItem";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import callApi from "./../../utils/apiCaller";
+import { actFetchProducts, actFetchProductsRequest } from './../../actions/index'
+
 class ProductListPage extends Component {
   constructor(props) {
     super(props);
@@ -13,11 +15,10 @@ class ProductListPage extends Component {
   }
   
   componentDidMount() {
-    callApi('products','GET',null).then(res =>{
-      this.setState({
-        products : res.data
-      })
-    })
+    // callApi('products','GET',null).then(res =>{
+    //   this.props.fetchAllProducts(res.data);
+    // })
+    this.props.fetchAllProducts();
   }
   
   findIndex = (products, id) =>{
@@ -45,7 +46,8 @@ class ProductListPage extends Component {
     })
   }
   render() {
-    const {products} = this.state;
+    //const {products} = this.state;
+    const {products} = this.props;
     return (
       <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <Link to="/product/add" className="btn btn-info mb-10">
@@ -82,4 +84,13 @@ const mapStateToProps = state =>{
   }
 }
 
-export default connect(mapStateToProps,null)(ProductListPage);
+const mapDispatchToProps = (dispatch, props) =>{
+  return {
+    fetchAllProducts: () =>{
+      dispatch(actFetchProductsRequest());
+    }
+  }
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(ProductListPage);
